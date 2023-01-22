@@ -1,0 +1,8 @@
+<p>A <b>{0}</b> has been generated on <b>{1}</b>. See attached for details.<p>
+
+<p>Please read the suggested Recommended Actions for Improvement or contact the Wentworth-Halton team if you have any questions.<p>
+
+<p><b>Sent by:</b></p>
+<b>{2}</b>
+<br/>
+<b>{3}</b>

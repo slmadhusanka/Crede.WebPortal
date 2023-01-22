@@ -1,0 +1,7 @@
+﻿<html>
+<body>
+<p>Your Verification Code for the {1} is: {0}</b>.</p>
+<p>This verification code will expire in 5 minutes.</p>
+
+</body>
+</html>

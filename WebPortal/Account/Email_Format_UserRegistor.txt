@@ -1,0 +1,11 @@
+﻿<html>
+<body>
+<br>
+<b>Welcome to the Wentworth-Halton Clinic System!</b><br/><br/>
+<b>A new account for the Wentworth-Halton Clinic has been created for you.</b><br/><br/>
+<b>You can login to your account using the credentials below at <a href={2} > {2} </a>  . You will be asked to reset your password when you login. </b><br><br>
+<br/><br/><b> Username: {0} </b>
+<br/><b> Password: {1}</b>
+
+</body>
+</html>

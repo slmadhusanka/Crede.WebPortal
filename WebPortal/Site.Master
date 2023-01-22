@@ -1,0 +1,501 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebPortal.SiteMaster" %>
+<%@ Import Namespace="Portal.Utility" %>
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> Wentworth-Halton </title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Styles.Render("~/bundles/boostrap_multiselect_css") %>
+        <%: Styles.Render("~/bundles/bootstrap_css") %>
+        <%: Styles.Render("~/bundles/jquery_ui_css") %>
+        <%: Styles.Render("~/bundles/jquery_ui_theme") %>
+        <%: Styles.Render("~/bundles/fontawesome") %>
+        <!--Google fonts-->
+        <link href="https://fonts.gstatic.com" rel="preconnect">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+        <%: Styles.Render("~/bundles/fancybox_css") %>
+        <%: Styles.Render("~/bundles/datatable_css") %>
+        <%: Styles.Render("~/bundles/bootstrap_select_css") %>
+        <%: Styles.Render("~/bundles/datetimepicker_css") %>
+        <%: Styles.Render("~/bundles/jquery_confirm_css") %>
+    
+        <%: Styles.Render("~/bundles/icheck_bootstrap") %>
+        <%: Styles.Render("~/bundles/loader_css") %>
+        <%--<%: Styles.Render("~/bundles/default_css") %>--%>
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <asp:ContentPlaceHolder ID="PageStyleContent" runat="server">
+    </asp:ContentPlaceHolder>
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/images/favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+    <link rel="stylesheet" type="text/css" href="<%=Page.ResolveUrl("~/Content/style_admin.css")%>">
+    <link rel="stylesheet" type="text/css" href="<%=Page.ResolveUrl("~/Content/bootstrap-icons/bootstrap-icons.css")%>">
+    <link rel="stylesheet" type="text/css" href="<%=Page.ResolveUrl("~/Content/choices.min.css")%>">
+</head>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+<body onkeydown="return (event.keyCode!=13)" class="inside-body">
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <!-- ======= Header ======= -->
+         <header id="header" class="header fixed-top d-flex align-items-center">
+       
+           <div class="d-flex align-items-center justify-content-between">
+             <a href="#" class="logo d-flex align-items-center">
+               <asp:Image ImageUrl="~/images/logo_header_mobile.png" AlternateText="Company Logo" runat="server" ID="Image1" />
+               <span class="d-none d-lg-block">Wentworth-Halton </span>
+             </a>
+             <i class="bi bi-list toggle-sidebar-btn"></i>
+           </div><!-- End Logo -->
+           
+       
+           <nav class="header-nav ms-auto">
+             <ul class="d-flex align-items-center">
+       
+       
+               <li class="nav-item dropdown pe-3">
+       
+                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                   <i style="font-size: 22px; color: #4154f1;" class="bi bi-person"></i>
+                   <asp:label ID="lblname" runat="server" class="d-none d-md-block dropdown-toggle ps-2"></asp:label>
+                 </a><!-- End Profile Iamge Icon -->
+       
+                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                   <li class="dropdown-header">
+                     <h6><%=BUSessionUtility.BUSessionContainer.FirstName+" " + BUSessionUtility.BUSessionContainer.LastName%></h6>
+                     <span><%=BUSessionUtility.BUSessionContainer.ROLE%></span>
+                   </li>
+                   <li>
+                     <hr class="dropdown-divider">
+                   </li>
+       
+                   <li  class="hide">
+                     <a class="dropdown-item d-flex align-items-center" id="A3" runat="server" href="~/Account/UpdateAccountSettings.aspx">
+                       <i class="bi bi-person"></i>
+                       <span>My Profile</span>
+                     </a>
+                   </li>
+                   <li>
+                     <hr class="dropdown-divider">
+                   </li>
+       
+                   <li>
+                     <a class="dropdown-item d-flex align-items-center" runat="server" href="~/Account/UpdateAccountSettings.aspx">
+                       <i class="bi bi-gear"></i>
+                       <span>Account Settings</span>
+                     </a>
+                   </li>
+                   <li>
+                     <hr class="dropdown-divider">
+                   </li>
+       
+                   <li class="hide">
+                     <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                       <i class="bi bi-question-circle"></i>
+                       <span>Need Help?</span>
+                     </a>
+                   </li>
+                   <li>
+                     <hr class="dropdown-divider">
+                   </li>
+       
+                   <li>
+                     <a class="dropdown-item d-flex align-items-center" id="lnkLogout" runat="server" href="~/Login.aspx">
+                       <i class="bi bi-box-arrow-right"></i>
+                       <span>Sign Out</span>
+                     </a>
+                   </li>
+       
+                 </ul><!-- End Profile Dropdown Items -->
+               </li><!-- End Profile Nav -->
+       
+             </ul>
+           </nav><!-- End Icons Navigation -->
+       
+         </header><!-- End Header -->
+    
+         <!-- ======= Sidebar ======= -->
+           <aside id="sidebar" class="sidebar">
+         
+             <ul class="sidebar-nav" id="sidebar-nav">
+
+                <li class="nav-item" id="li_Reprocessinglog" runat="server">
+                    <a class="nav-link collapsed" runat="server" title="Reprocessing Log" href="~/hld_reprocessing_log.aspx">
+                      <i class="bi bi-card-list"></i>
+                      <span>Reprocessing Log</span>
+                    </a>
+                  </li>
+
+                 <li class="nav-item" id="li_SolutionTestinglog"  runat="server">
+                    <a class="nav-link collapsed" runat="server" title="Solution Testing Log" href="~/hld_solution_testing_log.aspx">
+                      <i class="bi bi-thermometer-sun"></i>
+                      <span>Solution Testing Log</span>
+                    </a>
+                  </li>
+         
+               <li class="nav-item hide" id="li_reports" runat="server">
+                 <a id="liReports" runat="server" title="Reports" class="nav-link collapsed" href="#">
+                   <i class="fa fa-line-chart"></i>
+                   <span>Reports</span>
+                 </a>
+               </li>
+               
+               <li class="nav-item" id="logreports" runat="server">
+                  <a class="nav-link collapsed" data-bs-target="#logreport-nav" title="Log Reports" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-gear"></i><span>Log Reports</span><i class="bi bi-chevron-down ms-auto"></i>
+                  </a>
+                <ul id="logreport-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                   <li id="errorlogreport" runat="server">
+                     <a runat="server" href="~/SystemPages/ErrorLogXray.aspx" title="Error Log">
+                       <i class="bi bi-circle"></i><span>Error Log</span>
+                     </a>
+                   </li>
+                   <li id="assistancelogreport" runat="server">
+                     <a runat="server" href="~/SystemPages/AssistanceLogXray.aspx" title="Need Assistance Log">
+                       <i class="bi bi-circle"></i><span>Need Assistance Log</span>
+                     </a>
+                   </li> 
+                </ul>
+               </li>
+             
+             <%--<li class="nav-item" id="li_audits" runat="server">
+                <a id="liAudits" title="Reviews" runat="server" class="nav-link collapsed" href="~/Audit/Audit.aspx">
+                  <i class="fa fa-list-alt"></i>
+                  <span>Reviews</span>
+                </a>
+              </li>--%>
+         
+               <li class="nav-item" id="lisystemconfiguration" runat="server">
+                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" title="System Configuration" href="#">
+                   <i class="bi bi-gear"></i><span>System Configuration</span><i class="bi bi-chevron-down ms-auto"></i>
+                 </a>
+                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                   <li id="liConfiguration" runat="server">
+                     <a runat="server" href="~/SystemPages/SystemConfigurations.aspx" title="Configuration">
+                       <i class="bi bi-circle"></i><span>Configuration</span>
+                     </a>
+                   </li>
+                   <li id="liPermission" runat="server">
+                     <a id="A6" runat="server" href="~/SystemPages/Permission.aspx" title="Permissions">
+                       <i class="bi bi-circle"></i><span>Permissions</span>
+                     </a>
+                   </li>
+                   <li id="liRole" runat="server" class="">
+                     <a id="A7" runat="server" href="~/SystemPages/ListOfRole.aspx" title="Roles" >
+                        <i class="bi bi-circle"></i><span>Roles</span>
+                     </a>
+                   </li>
+                   <li id="liReportList" runat="server" class="d-none">
+                     <a id="A8" runat="server" href="~/SystemPages/ListOfReport.aspx" title="Report Management">
+                       <i class="fa fa-pie-chart"></i><span>Report Management</span>
+                     </a>
+                   </li>
+                   <li id="liApiClient" runat="server" class="d-none">
+                     <a id="A24" runat="server" href="~/SystemPages/ListOfAPIClients.aspx" title="API Clients">
+                       <i class="fa fa-hashtag"></i><span>API Clients</span>
+                     </a>
+                   </li>
+                 </ul>
+               </li><!-- End Components Nav -->
+         
+<%--               <li class="nav-item" runat="server" id="li_direct_observation">
+                 <a id="A1" runat="server" class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                   <i class="bi bi-journal-text"></i><span>Direct Observation Settings</span><i class="bi bi-chevron-down ms-auto"></i>
+                 </a>
+                 <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                   <li id="liAuditConfiguration" runat="server">
+                     <a id="A14" runat="server" href="~/SystemPages/AuditConfiguration.aspx" title="Configuration">
+                       <i class="fa fa-cog"></i><span>Configuration</span>
+                     </a>
+                   </li>
+                 </ul>
+               </li>--%><!-- End Forms Nav -->
+         
+               <li class="nav-item" runat="server" id="li_header_information">
+                 <a id="A10" runat="server" class="nav-link collapsed" title="Clinic & Equipment" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+                   <i class="bi bi-building"></i><span>Clinic & Equipment</span><i class="bi bi-chevron-down ms-auto"></i>
+                 </a>
+                 <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                   <li id="liZone" runat="server">
+                     <a id="hl_liZone" runat="server" href="~/SystemPages/ListOfRegion.aspx" title="Regions"> 
+                       <i class="bi bi-circle"></i><span>Regions</span>
+                     </a>
+                   </li>
+                   <li id="liFacility" runat="server">
+                     <a id="HyperLink1" runat="server" href="~/SystemPages/ListOfClinic.aspx" title="Clinic">
+                       <i class="bi bi-circle"></i><span>Clinic</span>
+                     </a>
+                   </li>
+                   <li id="liUnit" runat="server">
+                     <a id="HyperLink3" runat="server" href="~/SystemPages/ListOfEquipment.aspx" title="Equipment">
+                       <i class="bi bi-circle"></i><span>Equipment</span>
+                     </a>
+                   </li>
+                 </ul>
+               </li><!-- End Tables Nav -->
+         
+               <li class="nav-item" runat="server" id="li_table_Maintenance">
+                 <a id="A11" runat="server" class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" title="Table Maintenance" href="#">
+                   <i class="bi bi-sliders"></i><span>Table Maintenance</span><i class="bi bi-chevron-down ms-auto"></i>
+                 </a>
+                 <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                   <li id="liUser" runat="server">
+                     <a id="HyperLink8" runat="server" href="~/Account/ListOfUser.aspx" title="Users">
+                       <i class="bi bi-circle"></i><span>Users</span>
+                     </a>
+                   </li>
+                   <li id="liTransducer" runat="server">
+                     <a id="HyperLink2" runat="server" href="~/SystemPages/ListOfTransduser.aspx" title="Transducers">
+                       <i class="bi bi-circle"></i><span>Transducers</span>
+                     </a>
+                   </li>
+                 <li id="liLabType" runat="server">
+                     <a id="A1" runat="server" href="~/SystemPages/ListOfClinicType.aspx" title="Clinic Type">
+                       <i class="bi bi-circle"></i><span>Clinic Type</span>
+                     </a>
+                   </li>
+
+                <li id="liEquType" runat="server">
+                     <a id="HyperLink4" runat="server" href="~/SystemPages/ListOfEquipmentType1.aspx" title="Equipment Type">
+                       <i class="bi bi-circle"></i><span>Equipment Type</span>
+                     </a>
+                   </li>
+                     <li id="li2" runat="server">
+                     <a id="A4" runat="server" href="~/SystemPages/ListOfPossibleConsequence.aspx" title="Equipment Type">
+                       <i class="bi bi-circle"></i><span>Possible Consequence</span>
+                     </a>
+                   </li>
+
+                     </li>
+                     <li id="li3" runat="server">
+                     <a id="A5" runat="server" href="~/SystemPages/ListOfSuggestedPriorityNew.aspx" title="Equipment Type">
+                       <i class="bi bi-circle"></i><span>Suggested priority</span>
+                     </a>
+                   </li>
+
+                     </li>
+                     <li id="li1" runat="server">
+                     <a id="A2" runat="server" href="~/SystemPages/ListOfErrorCategory.aspx" title="Equipment Type">
+                       <i class="bi bi-circle"></i><span>Error Category</span>
+                     </a>
+                   </li>
+
+                   <li id="liUnitType2" class="d-none" runat="server">
+                      <a id="HyperLink5" runat="server" href="~/SystemPages/ListOfUnitType2.aspx" title="Unit Type 2">
+                        <i class="bi bi-circle"></i><span>Unit Type 2</span>
+                      </a>
+                    </li>
+                   <li id="liProgram" runat="server" class="hide">
+                     <a id="HyperLink9" runat="server" href="~/SystemPages/ListOfProgram.aspx" title="Programs">
+                       <i class="bi bi-circle"></i><span>Programs</span>
+                     </a>
+                   </li>
+                   <li id="liProgramType" runat="server" class="hide">
+                      <a id="HyperLink10" runat="server" href="~/SystemPages/ListOfProgramType.aspx" title="Program Type">
+                        <i class="bi bi-circle"></i><span>Program Type</span>
+                      </a>
+                    </li>
+                     
+                 </ul>
+               </li><!-- End Charts Nav -->
+         
+               </ul>
+         
+           </aside><!-- End Sidebar-->
+        <main id="main" class="main">
+                  <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </main>
+
+         <footer id="footer" class="footer">
+            <div class="copyright">
+              <a href="http://credetechnologies.com/" target="_blank"> Crede Technologies Inc.</a> © <%=DateTime.Now.Year.ToString() %> v <%=ConfigurationManager.AppSettings["VersionNumber"].ToString()%>
+            </div>
+    
+          </footer><!-- End Footer -->
+   
+           <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+        
+         <!--footer end-->
+         <asp:HiddenField ID="hdnReminderTime" ClientIDMode="Static" runat="server"/>
+         <asp:HiddenField ID="hdnRedirectTime" ClientIDMode="Static" runat="server"/>
+
+    </form>
+</body>
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/bootstrap_js") %>
+        <%: Scripts.Render("~/bundles/boostrap_multiselect_js") %>
+        <%: Scripts.Render("~/bundles/jquery_ui_js") %>
+        <%: Scripts.Render("~/bundles/fancybox_js") %>
+        <%: Scripts.Render("~/bundles/datetimepicker_js") %>
+        <%: Scripts.Render("~/bundles/moment_js") %>
+        <%: Scripts.Render("~/bundles/datatable_js") %>
+        <%: Scripts.Render("~/bundles/bootstrap_select_js") %>
+        <%: Scripts.Render("~/bundles/jquery_confirm_js") %>
+        <%: Scripts.Render("~/bundles/jquery_validate_js") %>    
+        <%: Scripts.Render("~/bundles/inputmask") %>
+        <%: Scripts.Render("~/bundles/dt_error_handler") %>
+        <script type="text/javascript" src='<%=Page.ResolveUrl("~/Scripts/main.js")%>'></script>
+        <script type="text/javascript" src='<%=Page.ResolveUrl("~/Scripts/choices.min.js")%>'></script>
+           
+        <script type="text/javascript">
+            var pathNames = [
+                { "pathname": "/ReportViewer/AuthenticatedReport.aspx", "id": "liReports" },
+                { "pathname": "/Audit/Audit.aspx", "id": "liAudits" },
+                { "pathname": "/Audit/AddNewAudit.aspx", "id": "liAudits" },
+                { "pathname": "/Audit/UpdateAudit.aspx", "id": "liAudits" },
+                { "pathname": "/ReportViewer/ReportContainer.aspx", "id": "liReports" },
+                { "pathname": "/SystemPages/ListOfRegion.aspx", "id": "liZone" },
+                { "pathname": "/SystemPages/AddRegion.aspx", "id": "liZone" },
+                { "pathname": "/SystemPages/UpdateRegion.aspx", "id": "liZone" },
+                { "pathname": "/SystemPages/ListOfClinic.aspx", "id": "liFacility" },
+                { "pathname": "/SystemPages/AddClinic.aspx", "id": "liFacility" },
+                { "pathname": "/SystemPages/UpdateClinic.aspx", "id": "liFacility" },
+                { "pathname": "/SystemPages/ListOfClinicType.aspx", "id": "liFacilityType" },
+                { "pathname": "/SystemPages/AddClinicType.aspx", "id": "liFacilityType" },
+                { "pathname": "/SystemPages/UpdateClinicType.aspx", "id": "liFacilityType" },
+                { "pathname": "/SystemPages/ListOfEquipment.aspx", "id": "liUnit" },
+                { "pathname": "/SystemPages/AddEquipment.aspx", "id": "liUnit" },
+                { "pathname": "/SystemPages/UpdateEquipment.aspx", "id": "liUnit" },
+                { "pathname": "/SystemPages/ListOfEquipmentType1.aspx", "id": "liUnitType1" },
+                { "pathname": "/SystemPages/AddEquipmentType1.aspx", "id": "liUnitType1" },
+                { "pathname": "/SystemPages/UpdateEquipmentType1.aspx", "id": "liUnitType1" },
+                { "pathname": "/SystemPages/ListOfUnitType2.aspx", "id": "liUnitType2" },
+                { "pathname": "/SystemPages/AddUnitType2.aspx", "id": "liUnitType2" },
+                { "pathname": "/SystemPages/UpdateUnitType2.aspx", "id": "liUnitType2" },
+                { "pathname": "/SystemPages/ListOfHCWM.aspx", "id": "liHCP" },
+                { "pathname": "/SystemPages/AddHCWM.aspx", "id": "liHCP" },
+                { "pathname": "/SystemPages/UpdateHCWM.aspx", "id": "liHCP" },
+                { "pathname": "/SystemPages/ListOfHCWGroup.aspx", "id": "liHCPGroup" },
+                { "pathname": "/SystemPages/AddHCWGroup.aspx", "id": "liHCPGroup" },
+                { "pathname": "/SystemPages/UpdateHCWGroup.aspx", "id": "liHCPGroup" },
+                { "pathname": "/Account/ListOfUser.aspx", "id": "liUser" },
+                { "pathname": "/Account/Register.aspx", "id": "liUser" },
+                { "pathname": "/Account/EditUser.aspx", "id": "liUser" },
+                { "pathname": "/SystemPages/ListOfProgram.aspx", "id": "liProgram" },
+                { "pathname": "/SystemPages/AddProgram.aspx", "id": "liProgram" },
+                { "pathname": "/SystemPages/UpdateProgram.aspx", "id": "liProgram" },
+                { "pathname": "/SystemPages/ListOfProgramType.aspx", "id": "liProgramType" },
+                { "pathname": "/SystemPages/AddProgramType.aspx", "id": "liProgramType" },
+                { "pathname": "/SystemPages/UpdateProgramType.aspx", "id": "liProgramType" },
+                { "pathname": "/SystemPages/UpdateSystemConfigurationM.aspx", "id": "liConfiguration" },
+                { "pathname": "/SystemPages/ListOfKeyDates.aspx", "id": "liKeyDate" },
+                { "pathname": "/SystemPages/AddKeyDates.aspx", "id": "liKeyDate" },
+                { "pathname": "/SystemPages/UpdateKeyDates.aspx", "id": "liKeyDate" },
+                { "pathname": "/SystemPages/ListOfAuditTypes.aspx", "id": "liAuditTypes" },
+                { "pathname": "/SystemPages/AddAuditType.aspx", "id": "liAuditTypes" },
+                { "pathname": "/SystemPages/UpdateAuditType.aspx", "id": "liAuditTypes" },
+                { "pathname": "/SystemPages/ListOfNoteM.aspx", "id": "liNote" },
+                { "pathname": "/SystemPages/AddNoteM.aspx", "id": "liNote" },
+                { "pathname": "/SystemPages/UpdateNoteM.aspx", "id": "liNote" },
+                { "pathname": "/SystemPages/AddNoteM.aspx", "id": "liNote" },
+                { "pathname": "/SystemPages/UpdateMomentM.aspx", "id": "liMoment" },
+                { "pathname": "/SystemPages/UpdateResultM.aspx", "id": "liResult" },
+                { "pathname": "/SystemPages/UpdateFactors.aspx", "id": "liGuideline" },
+                { "pathname": "/SystemPages/UpdatePPE.aspx", "id": "liPPE" },
+                { "pathname": "/SystemPages/DistributionList.aspx", "id": "liDisributionList" },
+                { "pathname": "/SystemPages/AddDistribution.aspx", "id": "liDisributionList" },
+                { "pathname": "/SystemPages/UpdateDistribution.aspx", "id": "liDisributionList" },
+                { "pathname": "/SystemPages/ListSentDistributionMail.aspx", "id": "liSendMail" },
+                { "pathname": "/SystemPages/SendDistributionMail.aspx", "id": "liSendMail" },
+                { "pathname": "/SystemPages/UpdateDistributionSendMail.aspx", "id": "liSendMail" },
+                { "pathname": "/SystemPages/ListOfAllowedDevices.aspx", "id": "liAllowedDevice" },
+                { "pathname": "/SystemPages/AddAllowedDevice.aspx", "id": "liAllowedDevice" },
+                { "pathname": "/SystemPages/UpdateAllowedDevice.aspx", "id": "liAllowedDevice" },
+                { "pathname": "/SystemPages/Permission.aspx", "id": "liPermission" },
+                { "pathname": "/SystemPages/ListOfRole.aspx", "id": "liRole" },
+                { "pathname": "/SystemPages/UpdateRole.aspx", "id": "liRole" },
+                { "pathname": "/SystemPages/ListOfRole.aspx", "id": "liRole" },
+                { "pathname": "/SystemPages/ListOfAPIClients.aspx", "id": "liApiClient" },
+                { "pathname": "/SystemPages/ListOfReport.aspx", "id": "liReportList" },
+                { "pathname": "/SystemPages/AddReport.aspx", "id": "liReportList" },
+                { "pathname": "/SystemPages/UpdateReport.aspx", "id": "liReportList" },
+                { "pathname": "/SystemPages/AuditConfiguration.aspx", "id": "liAuditConfiguration" },
+                { "pathname": "/SystemPages/ActivityFollowConfiguration.aspx", "id": "liActivityFollowConfiguration" },
+                { "pathname": "/SystemPages/ListOfActivityAction.aspx", "id": "liActivityAction" },
+                { "pathname": "/SystemPages/ListOfActivityFactor.aspx", "id": "liActivityFactors" },
+                { "pathname": "/SystemPages/SystemConfigurations.aspx", "id": "liConfiguration" },
+                { "pathname": "/SystemPages/hld_reprocessing_log.aspx", "id": "li_Reprocessinglog" },
+                { "pathname": "/SystemPages/hld_solution_testing_log.aspx", "id": "li_SolutionTestinglog" },
+                { "pathname": "/SystemPages/ListOfClinicType.aspx", "id": "li1" },
+                { "pathname": "/SystemPages/UpdateClinicType.aspx", "id": "li1" },
+                { "pathname": "/SystemPages/AddClinicType.aspx", "id": "li1" },
+                { "pathname": "/SystemPages/ListOfTransduser.aspx", "id": "liTransducer" },
+                { "pathname": "/SystemPages/ErrorLogXray.aspx", "id": "errorlogreport" },
+                { "pathname": "/SystemPages/AssistanceLogXray.aspx", "id": "assistancelogreport" }
+                
+            ];
+            $(function () {
+                var pathName = window.location.pathname;
+                $.grep(pathNames, function (element, index) {
+                    if (element.pathname == pathName) {
+                        var target = $('#' + element.id);
+                        $(target).addClass('active');
+                        if ($(target).parent('h4.panel-title').length) {
+                            $(target).addClass('active-link');
+                        } else {
+                            $(target).closest('.collapse').collapse('show');
+                            $(target).closest('.panel-default').find('h4.panel-title > a').addClass('active-link');
+                        }
+                    }
+                });
+            });
+            
+             jQuery(function ($) {
+                    $("#sidebar-nav a")
+                    .click(function (e) {
+                        var link = $(this);
+            
+                        var item = link.parent("li");
+            
+                        if (item.hasClass("active")) {
+                            item.removeClass("active").children("a").removeClass("active");
+                        } else {
+                            item.addClass("active").children("a").addClass("active");
+                        }
+            
+                        if (item.children("#sidebar-nav").length > 0) {
+                            var href = link.attr("href");
+                            link.attr("href", "#");
+                            setTimeout(function () {
+                                link.attr("href", href);
+                            }, 300);
+                            e.preventDefault();
+                        }
+                    })
+                    .each(function () {
+                        var link = $(this);
+                        if (link.get(0).href === location.href) {
+                            link.addClass("active").parents("li").addClass("active");
+                            return false;
+                        }
+                    });
+                  });
+             
+        </script>
+      
+        </asp:PlaceHolder>
+    </asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="PageScriptContent" runat="server"></asp:ContentPlaceHolder>
+</html>
